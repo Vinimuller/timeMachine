@@ -14,13 +14,25 @@ printTitle()
     echo -e ${cWHITE}
 }
 
+# Wait for user to proceed 
+pause()
+{
+    echo ""
+    read -p "Press [Enter] key to continue..." fackEnterKey
+    exit 0
+}
+
+# Trap CTRL+C, CTRL+Z and quit singles
+trap pause SIGINT SIGQUIT SIGTSTP
+
 tickStart=`date '+%d/%m/%Y %H:%M:%S'`
+
 # Main loop
 while true
 do
     clear
     printTitle "    T I M E - M A C H I N E "
     echo -e "You've been working since: \n\t$tickStart"
-    printf "\nTime elapsed: %02d:%02d:%02d" "$(($SECONDS/60/60))" "$(($SECONDS/60))" "$(($SECONDS%60))"
+    printf "\nTime elapsed: %02d:%02d:%02d\n" "$(($SECONDS/60/60))" "$(($SECONDS/60))" "$(($SECONDS%60))"
     sleep 1
 done
