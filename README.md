@@ -13,3 +13,5 @@ Time machine is a bash script that tells you the time elapsed since you've start
 
 - Run `timeMachine` on your terminal and enjoy :)
 - Exit pressing `ˆC`
+
+![img](img/img00.png)
