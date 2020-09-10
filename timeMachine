@@ -15,24 +15,37 @@ printTitle()
 }
 
 # Wait for user to proceed 
-pause()
+showReport()
 {
+    clear
+    printTitle "    T I M E - M A C H I N E "
+    echo -e "I started at: \n\t$tickStart"
+    printf "\nI ran for: \n\t%s\n" `calculateHours $SECONDS`
     echo ""
-    read -p "Press [Enter] key to continue..." fackEnterKey
+    read -p "Press [Enter] key to exit..." fackEnterKey
     exit 0
 }
 
-# Trap CTRL+C, CTRL+Z and quit singles
-trap pause SIGINT SIGQUIT SIGTSTP
+calculateHours()
+{
+    ((h=${1}/3600))
+    ((m=(${1}%3600)/60))
+    ((s=${1}%60))
 
-tickStart=`date '+%d/%m/%Y %H:%M:%S'`
+    printf "%02d:%02d:%02d" "$h" "$m" "$s"
+}
+
+# Trap CTRL+C, CTRL+Z and quit singles
+trap showReport SIGINT SIGQUIT SIGTSTP
+
+tickStart=`date '+%d/%m/%y %H:%M:%S'`
 
 # Main loop
 while true
 do
     clear
     printTitle "    T I M E - M A C H I N E "
-    echo -e "You've been working since: \n\t$tickStart"
-    printf "\nTime elapsed: %02d:%02d:%02d\n" "$(($SECONDS/60/60))" "$(($SECONDS/60))" "$(($SECONDS%60))"
+    echo -e "I'm running since: \n\t$tickStart"
+    printf "\nTime elapsed: \n\t%s\n" `calculateHours $SECONDS`
     sleep 1
 done
