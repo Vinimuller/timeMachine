@@ -8,3 +8,8 @@ Time machine is a bash script that tells you the time elapsed since you've start
 ```chmod +x ./timeMachine.sh```
 2. Export protject's path to your $PATH var:
 ```echo export PATH=`pwd`:\$PATH >> ~/.profile```
+
+## Using
+
+- Run `timeMachine` on your terminal and enjoy :)
+- Exit pressing `ˆC`
