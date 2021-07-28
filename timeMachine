@@ -4,6 +4,7 @@
 cGREEN=`tput -Txterm setaf 2`
 cWHITE=`tput -Txterm setaf 7`
 cRESET=`tput -Txterm sgr0`
+logFile="/Users/raks/Documents/Github/timeMachine/logtime.csv"
 
 # Print menu title
 printTitle()
@@ -14,18 +15,6 @@ printTitle()
     echo -e ${cWHITE}
 }
 
-# Wait for user to proceed 
-showReport()
-{
-    clear
-    printTitle "    T I M E - M A C H I N E "
-    echo -e "I started at: \n\t$tickStart"
-    printf "\nI ran for: \n\t%s\n" `calculateHours $SECONDS`
-    echo ""
-    read -p "Press [Enter] key to exit..." fackEnterKey
-    exit 0
-}
-
 calculateHours()
 {
     ((h=${1}/3600))
@@ -33,6 +22,31 @@ calculateHours()
     ((s=${1}%60))
 
     printf "%02d:%02d:%02d" "$h" "$m" "$s"
+}
+
+# Wait for user to proceed 
+showReport()
+{
+    local tickNow=`date '+%d/%m/%y %H:%M:%S'`
+    local duration=`calculateHours $SECONDS`
+
+    clear
+    printTitle "    T I M E - M A C H I N E "
+    
+    echo -e "I started at: \n\t$tickStart"
+    printf "\nI ran for: \n\t%s\n" ${duration}
+    echo ""
+    read -p "Press [Enter] key to exit..." fackEnterKey
+
+    # If log file does not exist, create it.
+    if ! [ -f ${logFile} ]
+    then
+        echo -e "Date Init; Date End; Duration" > ${logFile}
+    fi
+
+    echo -e "${tickStart}; ${tickNow}; ${duration}" >> ${logFile}
+
+    exit 0
 }
 
 # Trap CTRL+C, CTRL+Z and quit singles
