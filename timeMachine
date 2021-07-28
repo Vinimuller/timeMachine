@@ -35,16 +35,17 @@ showReport()
     
     echo -e "I started at: \n\t$tickStart"
     printf "\nI ran for: \n\t%s\n" ${duration}
+    
     echo ""
-    read -p "Press [Enter] key to exit..." fackEnterKey
-
+    read -p "Any comments to add? " comment
+    
     # If log file does not exist, create it.
     if ! [ -f ${logFile} ]
     then
-        echo -e "Date Init; Date End; Duration" > ${logFile}
+        echo -e "Date Init; Date End; Duration; Comment" > ${logFile}
     fi
 
-    echo -e "${tickStart}; ${tickNow}; ${duration}" >> ${logFile}
+    echo -e "${tickStart}; ${tickNow}; ${duration}; ${comment}" >> ${logFile}
 
     exit 0
 }
