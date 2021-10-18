@@ -29,6 +29,7 @@ showReport()
 {
     local tickNow=`date '+%d/%m/%y %H:%M:%S'`
     local duration=`calculateHours $SECONDS`
+    local durSeconds=$SECONDS
 
     clear
     printTitle "    T I M E - M A C H I N E "
@@ -45,7 +46,7 @@ showReport()
         echo -e "Date Init; Date End; Duration; Comment" > ${logFile}
     fi
 
-    echo -e "${tickStart}; ${tickNow}; ${duration}; ${comment}" >> ${logFile}
+    echo -e "${tickStart}; ${tickNow}; ${durSeconds}; ${comment}" >> ${logFile}
 
     exit 0
 }
